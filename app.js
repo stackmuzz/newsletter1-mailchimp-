@@ -2,6 +2,7 @@ const express=require("express");
 const bodyParser=require("body-parser");
 const https=require("https");
 
+require('dotenv').config();
 
 
 const app=express();
@@ -35,11 +36,14 @@ merge_fields: {
 ]
 
 };
+const api_key=process.env.API_KEY;
 const jsonData=JSON.stringify(data);
 const url="https://us21.api.mailchimp.com/3.0/lists/fb5c95210e";
 const options={
     method:"POST",
-    auth: "stackmuzz:765190754129e32fffd78b08756c2f90-us21"
+
+   
+    auth: "stackmuzz:"+api_key+""
 }
 const request=https.request(url,options,function(response){
     if(response.statusCode===200){
@@ -63,5 +67,3 @@ app.listen(process.env.PORT||3000,function(){
     console.log("server is running on port 3000");
 });
 
-// api key : 765190754129e32fffd78b08756c2f90-us21
-// audience/list id fb5c95210e
